@@ -1,4 +1,26 @@
-.activeRoute {
-  font-weight: bold;
-  text-decoration: underline;
+.header {
+  width: 100%;
+  background: #eee;
+  height: 60px;
+}
+
+.logo {
+  padding: 15px;
+  margin: 0;
+  display: inline-block;
+}
+
+.actions {
+  float: right;
+  a, label {
+    cursor: pointer;
+    padding: 20px;
+    display: inline-block;
+    margin-bottom: 0;
+    max-width: 115px;
+    input {
+      width: 0;
+      height: 0;
+    }
+  }
 }
