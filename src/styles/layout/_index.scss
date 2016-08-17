@@ -22,6 +22,7 @@ html, body, #app, .container {
 
 .header {
   width: 100%;
+  padding: 0;
   height: $header-height;
   position: absolute;
   top: 0;
@@ -50,9 +51,18 @@ html, body, #app, .container {
   overflow: hidden;
   overflow-y:auto;
   background: $color-background;
+
+  div:not(.toolbox) {
+    height: 100%;
+  }
+
+  .toolbox {
+    padding: 0;
+  }
 }
 
 .home-page {
+  width:100%;
   a, label {
     cursor: pointer;
     padding: 16px;
@@ -65,11 +75,19 @@ html, body, #app, .container {
   }
 
   > div {
+    width: 100%;
     padding:16px;
 
     p {
       font-family: transcription;
       padding: 8px 0px;
     }
+  }
+
+  .column {
+    float: left;
+    width: 50%;
+    height: 100%;
+    overflow: auto;
   }
 }
