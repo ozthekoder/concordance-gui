@@ -2,6 +2,7 @@ import * as types from '../constants/actions';
 import mammoth from 'mammoth';
 import Promise from 'bluebird';
 import React from 'react';
+import Dictionary from '../utils/dictionary';
 const reader = new window.FileReader();
 
 export function readFile(e) {
@@ -71,9 +72,11 @@ function fixCapitalization(text) {
 }
 
 function createDictionary(lines) {
-  const dictionary = {};
+  let dictionary;
   const refs = {};
   const contents = [];
+  const dict = {};
+  let words = [];
 
   lines.forEach((p) => {
     if(refs[p.ref]) {
@@ -84,13 +87,15 @@ function createDictionary(lines) {
 
     refs[p.ref] = true;
     contents.push(<p data-ref={p.ref} key={p.ref}>{`${p.text[0]} / ${p.text[1]}`}</p>);
-    const words = getWords(p.text);
-    console.log(words);
-    words.forEach((w) => {
-      dictionary[w] = dictionary[w] || [];
-      dictionary[w].push(p.ref);
+    const newWords = getWords(p.text);
+    words = [...words, ...newWords];
+    newWords.forEach((w) => {
+      dict[w] = dict[w] || [];
+      dict[w].push(p.ref);
     });
   });
+  dictionary = Dictionary.generate(words, dict);
+  window.dictionary = dictionary;
 
   return {
     dictionary,
