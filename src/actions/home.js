@@ -16,12 +16,12 @@ export function readFile(e) {
         payload
       });
     });
-  }
+  };
 }
 
 function readUploadedFile(file) {
   return new Promise((resolve) => {
-    reader.onload = () => { resolve(reader.result) };
+    reader.onload = () => { resolve(reader.result); };
     reader.readAsArrayBuffer(file);
   });
 }
@@ -32,9 +32,6 @@ function extractText(arrayBuffer) {
 
 function extractLines(result) {
   const text = result.value;
-  const dictionary = {};
-  const refs = {};
-  const content = [];
   return text
   .split('\n')
   .filter((line => !!line))
@@ -47,6 +44,30 @@ function extractLines(result) {
     };
   });
 
+}
+
+function getWords(line) {
+  return line
+  .map(fixSpaces)
+  .map(fixExtensions)
+  .map(fixCapitalization)
+  .map((l) => l.split(' '))
+  .reduce((prev, next) =>  [...prev, ...next]);
+}
+
+function fixSpaces(text) {
+  return text.split(' ')
+  .map((w) => w.trim())
+  .filter((w) => !!w.length)
+  .join(' ');
+}
+
+function fixExtensions(text) {
+  return text.replace(' -', '-').replace('.', '');
+}
+
+function fixCapitalization(text) {
+  return (text.substring(0,1).toLowerCase() + text.substring(1));
 }
 
 function createDictionary(lines) {
@@ -62,8 +83,9 @@ function createDictionary(lines) {
     }
 
     refs[p.ref] = true;
-    contents.push(<p key={p.ref}>{p.text}</p>)
-    const words = p.text[0].split(' ').concat(p.text[1].split(' '));
+    contents.push(<p data-ref={p.ref} key={p.ref}>{`${p.text[0]} / ${p.text[1]}`}</p>);
+    const words = getWords(p.text);
+    console.log(words);
     words.forEach((w) => {
       dictionary[w] = dictionary[w] || [];
       dictionary[w].push(p.ref);
@@ -74,5 +96,5 @@ function createDictionary(lines) {
     dictionary,
     contents,
     lines
-  }
+  };
 }

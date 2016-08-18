@@ -15,14 +15,19 @@ export const HomeContainer = (props) => {
 };
 
 HomeContainer.propTypes = {
-  file: PropTypes.object,
+  dictionary: PropTypes.object,
   contents: PropTypes.array,
-  actions: PropTypes.object.isRequired
+  lines: PropTypes.array
 };
 
 function mapStateToProps(state) {
+  console.log(state.homeReducer)
+  window.oz = state.homeReducer;
+  const { contents, dictionary, lines } = state.homeReducer;
   return {
-    contents: state.homeReducer.contents
+    contents,
+    dictionary,
+    lines
   };
 }
 

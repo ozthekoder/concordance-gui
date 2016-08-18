@@ -58,6 +58,14 @@ html, body, #app, .container {
 
   .toolbox {
     padding: 0;
+
+    #search {
+      padding: 8px;
+      margin: 6px;
+      border-radius: 2px;
+      border: 1px solid #eee;
+      width: 80%
+    }
   }
 }
 

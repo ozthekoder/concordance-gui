@@ -12,6 +12,7 @@ const HomePage = (props) => {
     </label>
     </div>
     <div className="column">
+    <input type="text" value="" id="search" name="search"/>
     </div>
     </div>
     </div>
@@ -28,6 +29,8 @@ const HomePage = (props) => {
 
 HomePage.PropTypes = {
   readFile: PropTypes.func,
-  contents: PropTypes.array
+  contents: PropTypes.array,
+  lines: PropTypes.array,
+  dictionary: PropTypes.object
 };
 export default HomePage;
