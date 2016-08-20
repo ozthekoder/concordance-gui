@@ -1,12 +1,10 @@
 export default class Dictionary {
 
-  constructor(words, lines) {
+  constructor() {
     this.tree = this.generateNewNode('');
-    this.lines = lines;
-    words.forEach(this.addWord.bind(this));
   }
 
-  addWord(word) {
+  addWord(lines, word) {
     let current = this.tree;
     word
     .split('')
@@ -17,12 +15,12 @@ export default class Dictionary {
       current = current.children[letter];
     });
 
-    current.word = word
-    current.refs = this.lines[word];
+    current.word = word;
+    current.refs = lines[word];
   }
 
   getSuggestions(str) {
-    return this.findWords(this.locateWord(str));
+    return this.findWords(this.locateWord(str)).sort();
   }
 
   findWords(node) {
@@ -32,7 +30,7 @@ export default class Dictionary {
     }
 
     if(node.children && Object.keys(node.children).length) {
-      words = [...words, ...(Object.keys(node.children).map((n) => this.findWords(node.children[n])).reduce((prev, next) => [...prev, ...next]))]
+      words = [...words, ...(Object.keys(node.children).map((n) => this.findWords(node.children[n])).reduce((prev, next) => [...prev, ...next]))];
     }
 
     return words;
@@ -54,11 +52,14 @@ export default class Dictionary {
     return {
       letter,
       children: {}
-    }
+    };
   }
 
   static generate(words, lines) {
-    return new Dictionary(words, lines);
+    const dict = new Dictionary();
+    words.forEach(dict.addWord.bind(dict, lines));
+
+    return dict;
   }
 
 }

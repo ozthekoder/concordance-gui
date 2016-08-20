@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import Header from '../components/Header';
+import Header from '../containers/HeaderContainer';
 const App = (props) => {
   return (
     <div className="container">

@@ -1,7 +1,10 @@
 export default {
   homeReducer: {
-    file: null,
     contents: [],
-    dictionary: null
+    dictionary: null,
+    lines: []
+  },
+  headerReducer: {
+    file: null
   }
 };

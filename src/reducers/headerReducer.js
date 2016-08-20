@@ -1,4 +1,4 @@
-import {SET_CONTENTS} from '../constants/actions';
+import {SET_FILE} from '../constants/actions';
 import initialState from './initialState';
 //import immutable from 'immutable';
 
@@ -9,12 +9,12 @@ import initialState from './initialState';
 // and update values on the copy.
 
 const handlers = {
-  [SET_CONTENTS]: (state, action) => {
-  const { contents, dictionary, lines, file } = action.payload;
-    return Object.assign({}, state, { contents, dictionary, lines, file });
+  [SET_FILE]: (state, action) => {
+  const { file } = action.payload;
+    return Object.assign({}, state, { file });
   }
 };
 
-export default function homeReducer(state = initialState.homeReducer, action) {
+export default function headerReducer(state = initialState.headerReducer, action) {
   return handlers[action.type] ? handlers[action.type](state, action) : state;
 }

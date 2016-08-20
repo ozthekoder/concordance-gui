@@ -30,7 +30,29 @@ html, body, #app, .container {
   right: 0;
   margin: auto;
   background: $color-primary;
+  border-bottom: 1px solid #eee;
+  label, button {
+    cursor: pointer;
+    display: block;
+    margin-bottom: 0;
+    width: 150px;
+    text-align: center;
+    float: right;
+    margin: 6px;
 
+    input[type="file"] {
+      width: 0;
+      height: 0;
+      margin: 0;
+      padding: 0;
+      border: 0;
+    }
+  }
+
+  input[type="text"] {
+    width: calc(100% - 450px);
+    margin: 6px;
+  }
   a {
     color: $color-background;
   }
@@ -58,37 +80,28 @@ html, body, #app, .container {
 
   .toolbox {
     padding: 0;
+    border-bottom: 1px solid #ddd;
 
     #search {
       padding: 8px;
       margin: 6px;
       border-radius: 2px;
       border: 1px solid #eee;
-      width: 80%
+      width: 50%
     }
   }
 }
 
 .home-page {
   width:100%;
-  a, label {
-    cursor: pointer;
-    padding: 16px;
-    display: block;
-    margin-bottom: 0;
-    input {
-      width: 0;
-      height: 0;
-    }
-  }
 
   > div {
     width: 100%;
-    padding:16px;
 
     p {
       font-family: transcription;
-      padding: 8px 0px;
+      font-size: 12px;
+      padding: 8px 8px;
     }
   }
 
@@ -97,5 +110,11 @@ html, body, #app, .container {
     width: 50%;
     height: 100%;
     overflow: auto;
+    padding: 8px;
+    border-right: 1px solid #ddd;
+
+    &:last-child {
+      border-right: 0;
+    }
   }
 }
