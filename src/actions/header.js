@@ -50,7 +50,7 @@ function extractLines({ result, file }) {
       text: split[split.length-1].split('/').map((passage) => passage.trim())
     })),
   file
-  }
+  };
 
 }
 
@@ -79,12 +79,12 @@ function fixCapitalization(text) {
   return (text.substring(0,1).toLowerCase() + text.substring(1));
 }
 
-function getConcordance (words, lines) {
+function getConcordance (words, lines, counts) {
   if( words && lines) {
     return Object
     .keys(words)
     .sort()
-    .map((word) => ({ word, lines: words[word].map((ref) => `${ref} ${lines[ref]}`)}));
+    .map((word) => ({ word, numbers: counts[word], lines: words[word].map((ref) => `${ref} ${lines[ref]}`)}));
   }
 
   return [];
@@ -96,6 +96,10 @@ function createDictionary({ lines, file }) {
   const contents = [];
   const dict = {};
   let words = [];
+  let wordCounts = {};
+  let letterCounts = {};
+  let wordTotal = 0;
+
 
   lines.forEach((p) => {
     if(refs[p.ref]) {
@@ -110,15 +114,31 @@ function createDictionary({ lines, file }) {
     words = [...words, ...newWords];
     newWords.forEach((w) => {
       dict[w] = dict[w] || [];
-      dict[w].push(p.ref);
+      wordCounts[w] = wordCounts[w] || { count: 0 };
+      wordCounts[w].count += 1;
+      wordTotal += 1;
+      w
+      .split('')
+      .forEach((l) => {
+        letterCounts[l] = letterCounts[l] ? (letterCounts[l] + 1) : 1;
+    });
+      if(!dict[w].includes(p.ref)) {
+        dict[w].push(p.ref);
+      }
     });
   });
   words = words.sort();
   dictionary = Dictionary.generate(words, dict);
-  window.dictionary = dictionary;
-  const ln = lines.reduce((prev, next) => ({ ...prev, [next.ref]: `${next.text[0]} / ${next.text[1]}` }), {})
+  wordCounts = Object
+  .keys(wordCounts)
+  .map(c => ({...wordCounts[c], ...{ word: c, frequency: wordCounts[c].count / wordTotal }}))
+  .reduce((prev, next) => ({...prev, ...{ [next.word]: { count: next.count, frequency: next.frequency } }}),{});
 
-  const concordance = getConcordance(dict, ln);
+  window.wordCounts = wordCounts;
+  window.dictionary = dictionary;
+  const ln = lines.reduce((prev, next) => ({ ...prev, [next.ref]: `${next.text[0]} / ${next.text[1]}` }), {});
+
+  const concordance = getConcordance(dict, ln, wordCounts);
 
   return {
     file,

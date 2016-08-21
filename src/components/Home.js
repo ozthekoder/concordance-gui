@@ -8,7 +8,7 @@ const HomePage = (props) => {
       {props.contents}
     </div>
     <div className="column">
-      {props.concordance.map((props) => <Concordance {...props} />)}
+      {props.concordance.map((props, index) => <Concordance key={index} {...props} />)}
     </div>
     </div>
     </div>

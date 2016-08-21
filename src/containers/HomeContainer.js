@@ -20,7 +20,6 @@ HomeContainer.propTypes = {
 
 function mapStateToProps(state) {
   const { contents, dictionary, concordance } = state.homeReducer;
-console.log(concordance)
   return {
     contents,
     dictionary,
