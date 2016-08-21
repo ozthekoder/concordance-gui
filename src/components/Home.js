@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-
+import Concordance from './Concordance'
 const HomePage = (props) => {
   return (
     <div className="home-page">
@@ -8,6 +8,7 @@ const HomePage = (props) => {
       {props.contents}
     </div>
     <div className="column">
+      {props.concordance.map((props) => <Concordance {...props} />)}
     </div>
     </div>
     </div>
@@ -15,9 +16,8 @@ const HomePage = (props) => {
 };
 
 HomePage.PropTypes = {
-  readFile: PropTypes.func,
   contents: PropTypes.array,
-  lines: PropTypes.array,
-  dictionary: PropTypes.object
+  dictionary: PropTypes.object,
+  concordance: PropTypes.array
 };
 export default HomePage;

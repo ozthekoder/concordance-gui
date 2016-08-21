@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Logo from './Logo';
 
 const HeaderComponent = (props) => {
@@ -25,5 +25,11 @@ const HeaderComponent = (props) => {
     </div>
   );
 };
+
+HeaderComponent.PropTypes = {
+  readFile: PropTypes.func,
+  file: PropTypes.string
+};
+
 
 export default HeaderComponent;

@@ -10,8 +10,8 @@ import initialState from './initialState';
 
 const handlers = {
   [SET_CONTENTS]: (state, action) => {
-  const { contents, dictionary, lines, file } = action.payload;
-    return Object.assign({}, state, { contents, dictionary, lines, file });
+  const { contents, dictionary, concordance } = action.payload;
+    return Object.assign({}, state, { contents, dictionary, concordance });
   }
 };
 

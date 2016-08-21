@@ -29,6 +29,7 @@
   "author": "Cory House",
   "license": "MIT",
   "dependencies": {
+    "docx": "1.0.0",
     "immutable": "3.8.1",
     "mammoth": "1.1.0",
     "material-ui": "0.15.4",

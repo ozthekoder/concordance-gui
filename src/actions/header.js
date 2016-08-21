@@ -60,6 +60,7 @@ function getWords(line) {
   .map(fixExtensions)
   .map(fixCapitalization)
   .map((l) => l.split(' '))
+  .filter((w) => w.length > 1)
   .reduce((prev, next) =>  [...prev, ...next]);
 }
 
@@ -76,6 +77,17 @@ function fixExtensions(text) {
 
 function fixCapitalization(text) {
   return (text.substring(0,1).toLowerCase() + text.substring(1));
+}
+
+function getConcordance (words, lines) {
+  if( words && lines) {
+    return Object
+    .keys(words)
+    .sort()
+    .map((word) => ({ word, lines: words[word].map((ref) => `${ref} ${lines[ref]}`)}));
+  }
+
+  return [];
 }
 
 function createDictionary({ lines, file }) {
@@ -101,13 +113,17 @@ function createDictionary({ lines, file }) {
       dict[w].push(p.ref);
     });
   });
+  words = words.sort();
   dictionary = Dictionary.generate(words, dict);
   window.dictionary = dictionary;
+  const ln = lines.reduce((prev, next) => ({ ...prev, [next.ref]: `${next.text[0]} / ${next.text[1]}` }), {})
+
+  const concordance = getConcordance(dict, ln);
 
   return {
     file,
+    concordance,
     dictionary,
     contents,
-    lines
   };
 }

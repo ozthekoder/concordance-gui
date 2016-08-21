@@ -3,7 +3,7 @@ import { IndexLink } from 'react-router';
 
 const Logo = () => {
   return (
-      <IndexLink className="logo" to="/">TR Dizin</IndexLink>
+      <IndexLink className="logo" to="/">Kelime Dizin</IndexLink>
   );
 };
 

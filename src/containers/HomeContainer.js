@@ -2,10 +2,12 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import HomeComponent from '../components/Home';
 
+
 export const HomeContainer = (props) => {
   return (
     <HomeComponent
     contents={props.contents}
+    concordance={props.concordance}
     />
   );
 };
@@ -13,15 +15,16 @@ export const HomeContainer = (props) => {
 HomeContainer.propTypes = {
   dictionary: PropTypes.object,
   contents: PropTypes.array,
-  lines: PropTypes.array
+  concordance: PropTypes.array
 };
 
 function mapStateToProps(state) {
-  const { contents, dictionary, lines } = state.homeReducer;
+  const { contents, dictionary, concordance } = state.homeReducer;
+console.log(concordance)
   return {
     contents,
     dictionary,
-    lines
+    concordance
   };
 }
 

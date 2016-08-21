@@ -1,8 +1,8 @@
 export default {
   homeReducer: {
     contents: [],
-    dictionary: null,
-    lines: []
+    dictionary: {},
+    concordance: []
   },
   headerReducer: {
     file: null

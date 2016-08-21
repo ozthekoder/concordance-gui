@@ -15,9 +15,8 @@ export const HeaderContainer = (props) => {
 };
 
 HeaderContainer.propTypes = {
-  dictionary: PropTypes.object,
-  contents: PropTypes.array,
-  lines: PropTypes.array
+  file: PropTypes.string,
+  actions: PropTypes.object
 };
 
 function mapStateToProps(state) {

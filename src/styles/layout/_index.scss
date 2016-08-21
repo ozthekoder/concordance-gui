@@ -116,5 +116,12 @@ html, body, #app, .container {
     &:last-child {
       border-right: 0;
     }
+
+    .concordance {
+      h3, p {
+        font-family: concordance;
+      }
+      height: auto;
+    }
   }
 }
